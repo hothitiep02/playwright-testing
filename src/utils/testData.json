@@ -1,0 +1,80 @@
+{
+  "admin": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "invalidLogins": [
+    {
+      "description": "Invalid password",
+      "username": "Admin",
+      "password": "wrongpassword",
+      "expectedError": "Invalid credentials"
+    },
+    {
+      "description": "Blank credentials",
+      "username": "",
+      "password": "",
+      "expectedError": "Required"
+    },
+    {
+      "description": "Username only",
+      "username": "Admin",
+      "password": "",
+      "expectedError": "Required"
+    }
+  ],
+  "forgotPassword": {
+    "registeredEmail": "admin@orangehrm.com",
+    "unregisteredEmail": "notfound@orangehrm.com"
+  },
+  "employee": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "middleName": "Robert",
+    "employeeId": "10982",
+    "editJobTitle": "QA Engineer",
+    "emergencyContact": {
+      "name": "Jane Doe",
+      "relationship": "Spouse",
+      "mobile": "1234567890"
+    }
+  },
+  "leave": {
+    "startDate": "2026-10-10",
+    "endDate": "2026-10-15",
+    "invalidEndDate": "2026-10-09",
+    "exceedBalanceDays": 50
+  },
+  "recruitment": {
+    "vacancyName": "QA Automator Vacancy 1",
+    "candidate": {
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "email": "alice.smith@example.com",
+      "contactNumber": "9876543210",
+      "interviewTitle": "Technical Interview 1",
+      "interviewer": "Odis Adalwin",
+      "interviewDate": "2026-11-15",
+      "interviewTime": "10:00"
+    }
+  },
+  "adminModule": {
+    "newUser": {
+      "employeeName": "Odis Adalwin",
+      "username": "essuser123",
+      "password": "Password123!",
+      "confirmPassword": "Password123!"
+    },
+    "duplicateUser": {
+      "employeeName": "Odis Adalwin",
+      "username": "essuser123",
+      "password": "Password123!",
+      "confirmPassword": "Password123!"
+    },
+    "newJobTitle": "Senior Playwright QA",
+    "jobDescription": "Builds Playwright TS scripts",
+    "orgUnitName": "QA Department Antigravity",
+    "orgUnitDescription": "Advanced Agentic Coding testing unit",
+    "updatedOrgName": "OrangeHRM Antigravity Corp"
+  }
+}
