@@ -11,7 +11,9 @@ type PageFixtures = {
 
 export const test = base.extend<PageFixtures>({
     loginPage: async ({ page }, use) => {
-        await use(new LoginPage(page));
+    const loginPage = new LoginPage(page);
+    await loginPage.navigateTo('/web/index.php/auth/login');
+    await use(loginPage);
     },
     forgotPasswordPage: async ({ page }, use) => {
         await use(new ForgotPasswordPage(page));

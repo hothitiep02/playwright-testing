@@ -3,11 +3,6 @@ import { env } from '../../utils/env';
 import * as testData from '../../utils/testData.json';
 
 test.describe('Login & Session Management Tests @login', () => {
-  
-  test.beforeEach(async ({ loginPage }) => {
-    await loginPage.navigateTo('/web/index.php/auth/login');
-  });
-
   test('TC-AUTH-01: Login with valid credentials @smoke', async ({ page, loginPage, dashboardPage }) => {
     await loginPage.login(env.adminUsername, env.adminPassword);
     await expect(page).toHaveURL(/.*dashboard/);

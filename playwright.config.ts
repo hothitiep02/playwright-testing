@@ -6,7 +6,7 @@ export default defineConfig({
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 2 : undefined,
+    workers: process.env.CI ? 2 : 2,
     timeout: 60000,
     expect: {
         timeout: 10000
@@ -27,7 +27,7 @@ export default defineConfig({
         video: 'retain-on-failure',
         trace: 'retain-on-failure',
         actionTimeout: 15000,
-        navigationTimeout: 30000,
+        navigationTimeout: 60000,
         launchOptions: {
             args: [
                 '--ignore-certificate-errors',

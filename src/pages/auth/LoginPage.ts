@@ -26,4 +26,7 @@ export class LoginPage extends BasePage {
         await this.passwordInput.fill(password || '');
         await this.loginButton.click();
     }
+    async clickForgotPassword() {
+        await this.forgotPasswordLink.click();
+    }
 }
