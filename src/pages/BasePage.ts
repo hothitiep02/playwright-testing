@@ -9,7 +9,7 @@ export class BasePage {
     await this.page.goto(url);
   }
   async click(locator: Locator) {
-    await locator.waitFor({ state: 'visible' });
+    await locator.waitFor({ state: 'visible', timeout: 30000 });
     await locator.click();
   }
   async type(locator: Locator, text: string) {
