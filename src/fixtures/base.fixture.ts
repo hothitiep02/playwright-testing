@@ -3,6 +3,7 @@ import { LoginPage } from '../pages/auth/LoginPage';
 import { ForgotPasswordPage } from '../pages/auth/ForgotPasswordPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
+import { LeavePage } from '../pages/LeavePage';
 import { env } from '../utils/env';
 
 type PageFixtures = {
@@ -10,6 +11,7 @@ type PageFixtures = {
     forgotPasswordPage: ForgotPasswordPage;
     dashboardPage: DashboardPage;
     pimPage: PIMPage;
+    leavePage: LeavePage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -29,6 +31,9 @@ export const test = base.extend<PageFixtures>({
         await loginPage.login(env.adminUsername, env.adminPassword);
         await pimPage.navigateToPIM();
         await use(pimPage);
+    },
+    leavePage: async ({ page}, use) => {
+        await use(new LeavePage(page));
     }
 });
 export { expect } from '@playwright/test';
