@@ -1,11 +1,32 @@
+import { DateUtils } from './DateUtils';
 export class RandomUtils {
-  static getUniqueName(prefix: string): string {
-    const now = new Date();
-    const timestamp = now.toISOString().replace(/[-:T.]/g, '').slice(0, 14);
-    return `${prefix}_${timestamp}`;
+  /**
+   * Generates a random number between min (inclusive) and max (inclusive)
+   */
+  static getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
-  static getRandomEmployeeId(): string {
-    return Math.floor(10000 + Math.random() * 90000).toString();
+  /**
+   * Generates a random alphabetic string of a given length
+   */
+  static getRandomString(length: number): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+  /**
+   * Generates a unique employee name (first and last)
+   * Example output: { firstName: 'Emp_Kldy', lastName: 'L_20260707' }
+   */
+  static getRandomEmployeeNames(): { firstName: string; lastName: string } {
+    const randomSuffix = this.getRandomString(4);
+    const currentDate = DateUtils.getCurrentDateYYYYMMDD();
+    return {
+      firstName: `Emp_${randomSuffix}`,
+      lastName: `L_${currentDate}`
+    };
   }
 }

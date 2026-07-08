@@ -19,6 +19,7 @@ export const PIMLocator = {
   pencilIcon: '.bi-pencil-fill',
   jobTab: '.orangehrm-tabs-item:has-text("Job")',
   jobTitleSelect: '.oxd-input-group:has-text("Job Title") .oxd-select-text',
+  selectOptions: '.oxd-select-option',
   autocompleteDropdownOption: '.oxd-autocomplete-dropdown .oxd-autocomplete-option',
   resetBtn: 'button:has-text("Reset")',
   noRecordsText: 'text="No Records Found"'
@@ -42,6 +43,7 @@ export class PIMPage extends BasePage {
   readonly firstRowEditBtn: Locator;
   readonly jobTab: Locator;
   readonly jobTitleSelect: Locator;
+  readonly selectOptions: Locator;
   readonly autocompleteDropdownOption: Locator;
   readonly resetBtn: Locator;
   readonly noRecordsText: Locator;
@@ -65,6 +67,7 @@ export class PIMPage extends BasePage {
     this.firstRowEditBtn = this.tableRows.first().locator(PIMLocator.pencilIcon);
     this.jobTab = page.locator(PIMLocator.jobTab);
     this.jobTitleSelect = page.locator(PIMLocator.jobTitleSelect);
+    this.selectOptions = page.locator(PIMLocator.selectOptions);
     this.autocompleteDropdownOption = page.locator(PIMLocator.autocompleteDropdownOption);
     this.resetBtn = page.locator(PIMLocator.resetBtn);
     this.noRecordsText = this.tableBody.locator(PIMLocator.noRecordsText);
@@ -129,7 +132,7 @@ export class PIMPage extends BasePage {
     await this.page.waitForLoadState('networkidle');
     await this.click(this.jobTab);
     await this.page.waitForLoadState('networkidle');
-    await this.selectDropdownOption(this.jobTitleSelect, jobTitle);
+    await this.selectDropdownOption(this.jobTitleSelect, this.selectOptions, jobTitle);
     await this.click(this.saveBtn);
     await this.page.waitForLoadState('networkidle');
   }

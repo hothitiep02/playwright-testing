@@ -76,5 +76,11 @@
     "orgUnitName": "QA Department Antigravity",
     "orgUnitDescription": "Advanced Agentic Coding testing unit",
     "updatedOrgName": "OrangeHRM Antigravity Corp"
+  },
+  "attendance": {
+    "punchInNote": "Automation Punch In",
+    "punchOutNote": "Automation Punch Out",
+    "autoPunchInNote": "System auto punch in",
+    "autoPunchOutNote": "System auto punch out"
   }
 }
