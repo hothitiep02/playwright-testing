@@ -5,7 +5,7 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
 import { LeavePage } from '../pages/LeavePage';
 import { env } from '../utils/env';
-import { AttendancePage } from '../pages/AttandancePage';
+import { AttendancePage } from '../pages/AttendancePage';
 
 type PageFixtures = {
     loginPage: LoginPage;
@@ -39,10 +39,7 @@ export const test = base.extend<PageFixtures>({
     },
     attendancePage: async ({ page, loginPage }, use) => {
         const attendancePage = new AttendancePage(page);
-        await loginPage.login(
-            env.adminUsername,
-            env.adminPassword
-        );
+        await loginPage.login(env.adminUsername,env.adminPassword);
         await attendancePage.navigateToPunchInOut();
         await use(attendancePage);
    },

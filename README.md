@@ -1,10 +1,8 @@
 # OrangeHRM Automation Mock Project
-
-An end-to-end test automation framework built to validate the core modules of the OrangeHRM demo application. This project transitionally utilizes **Playwright** with **TypeScript** implementing the Page Object Model (POM) architecture, cross-browser execution, and automated CI/CD integration.
+An end-to-end test automation framework built to validate the core modules of the OrangeHRM demo application. This project transitionally utilizes Playwright with TypeScript implementing the Page Object Model (POM) architecture, cross-browser execution, and automated CI/CD integration.
 
 ## Project Quick Links
 * **Application Under Test (AUT):** [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com)
-* **Default Credentials:** `Admin` / `admin123`
 * **Target Audience:** Beginner / Intermediate Automation Students
 
 ## Tech Stack & Prerequisites

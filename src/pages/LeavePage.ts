@@ -23,7 +23,7 @@ export const LeaveLocator = {
   entitlementSubmitButton: 'button[type="submit"]',
   entitlementConfirmButton: 'button:has-text("Confirm"), button:has-text("Ok")',
   formLoader: '.oxd-form-loader'
-};
+} as const;
 
 export class LeavePage extends BasePage {
   readonly menuLeave: Locator;
@@ -148,5 +148,10 @@ export class LeavePage extends BasePage {
     if (await this.autocompleteOptions.count() > 0) {
       await this.click(this.autocompleteOptions.first());
     }
+  }
+
+  // ✅ HÀM MỚI THÊM: Trả về Locator chứa văn bản trạng thái ở dòng đầu tiên trong bảng kết quả
+  async getFirstRowStatusLocator(statusText: string): Promise<Locator> {
+    return this.tableRows.first().getByText(statusText, { exact: true });
   }
 }
