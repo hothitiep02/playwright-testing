@@ -12,12 +12,3 @@ An end-to-end test automation framework built to validate the core modules of th
 * **Environment Management:** `dotenv`
 * **CI/CD:**  Jenkins
 
-### Prerequisites
-Ensure you have the following installed on your local machine:
-* [Node.js](https://nodejs.org/) (v18.0.0 or higher)
-* Git
-
-## Installation & Setup
-1. **Clone the repository:**
-  bash
-   git clone [https://github.com/hothitiep02/playwright-testing.git](https://github.com/hothitiep02/playwright-testing.git)

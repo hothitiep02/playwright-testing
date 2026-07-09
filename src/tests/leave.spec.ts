@@ -36,8 +36,6 @@ async function createEmployeeWithEntitlement(
 
   await pimPage.navigateToPIM();
   await pimPage.addEmployeeWithLogin(empFirstName, empLastName, username, password, empId);
-  
-  // ✅ ĐÃ FIX: Đã bọc locator 'h6:has-text("Personal Details")' vào hàm của pimPage
   await pimPage.verifyPersonalDetailsHeaderIsVisible();
   
   await page.goto('/web/index.php/leave/addLeaveEntitlement');
@@ -100,8 +98,6 @@ test.describe('Leave Module Testing @leave', () => {
     await test.step('Step 5: Verify request status is Pending Approval', async () => {
       await page.goto('/web/index.php/leave/viewMyLeaveList');
       await leavePage.waitForLoaderToDisappear();
-      
-      // ✅ ĐÃ FIX: Thay thế getByText trực tiếp bằng hàm getFirstRowStatusLocator của leavePage
       const pendingStatus = await leavePage.getFirstRowStatusLocator('Pending Approval');
       await expect(pendingStatus).toBeVisible();
     });

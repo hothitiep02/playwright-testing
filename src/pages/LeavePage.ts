@@ -150,7 +150,6 @@ export class LeavePage extends BasePage {
     }
   }
 
-  // ✅ HÀM MỚI THÊM: Trả về Locator chứa văn bản trạng thái ở dòng đầu tiên trong bảng kết quả
   async getFirstRowStatusLocator(statusText: string): Promise<Locator> {
     return this.tableRows.first().getByText(statusText, { exact: true });
   }

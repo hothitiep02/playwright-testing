@@ -22,11 +22,7 @@ export const PIMLocator = {
   selectOptions: '.oxd-select-option',
   autocompleteDropdownOption: '.oxd-autocomplete-dropdown .oxd-autocomplete-option',
   resetBtn: 'button:has-text("Reset")',
-  noRecordsText: 'text="No Records Found"',
-  createLoginDetailsToggle: '.oxd-switch-input',
-  usernameInput: '.oxd-input-group:has-text("Username") input',
-  passwordInput: '.oxd-input-group:has-text("Password") input',
-  confirmPasswordInput: '.oxd-input-group:has-text("Confirm Password") input'
+  noRecordsText: 'text="No Records Found"'
 };
 
 export class PIMPage extends BasePage {
@@ -51,10 +47,6 @@ export class PIMPage extends BasePage {
   readonly autocompleteDropdownOption: Locator;
   readonly resetBtn: Locator;
   readonly noRecordsText: Locator;
-  readonly createLoginDetailsToggle: Locator;
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly confirmPasswordInput: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -79,10 +71,6 @@ export class PIMPage extends BasePage {
     this.autocompleteDropdownOption = page.locator(PIMLocator.autocompleteDropdownOption);
     this.resetBtn = page.locator(PIMLocator.resetBtn);
     this.noRecordsText = this.tableBody.locator(PIMLocator.noRecordsText);
-    this.createLoginDetailsToggle = page.locator(PIMLocator.createLoginDetailsToggle);
-    this.usernameInput = page.locator(PIMLocator.usernameInput);
-    this.passwordInput = page.locator(PIMLocator.passwordInput).first();
-    this.confirmPasswordInput = page.locator(PIMLocator.confirmPasswordInput);
   }
 
   async navigateToPIM() {
@@ -101,21 +89,6 @@ export class PIMPage extends BasePage {
     if (empId) {
       await this.type(this.employeeIdInput, empId);
     }
-    await this.click(this.saveBtn);
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async addEmployeeWithLogin(firstName: string, lastName: string, username: string, password: string, empId?: string) {
-    await this.click(this.addEmployeeBtn);
-    await this.type(this.firstNameInput, firstName);
-    await this.type(this.lastNameInput, lastName);
-    if (empId) {
-      await this.type(this.employeeIdInput, empId);
-    }
-    await this.click(this.createLoginDetailsToggle); // Bật công tắc tạo tài khoản
-    await this.type(this.usernameInput, username);
-    await this.type(this.passwordInput, password);
-    await this.type(this.confirmPasswordInput, password);
     await this.click(this.saveBtn);
     await this.page.waitForLoadState('networkidle');
   }

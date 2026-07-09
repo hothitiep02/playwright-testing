@@ -1,13 +1,15 @@
-import { Locator, Page } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export const AttendanceLocator = {
-  menuTime: '.oxd-main-menu-item:has-text("Time")',
+  menuTime:'.oxd-main-menu-item:has-text("Time")',
   navAttendanceTab: '.oxd-topbar-body-nav-tab',
   navPunchInOutOption: '.oxd-dropdown-menu >> text="Punch In/Out"',
   pageTitle: '.orangehrm-main-title',
   noteTextarea: 'textarea',
-  toastMessage: '.oxd-toast-content'
+  inButton: 'button:has-text("In")',
+  outButton: 'button:has-text("Out")',
+  toastMessage: '.oxd-toast-content',
 };
 
 export class AttendancePage extends BasePage {
@@ -22,78 +24,56 @@ export class AttendancePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-
     this.menuTime = page.locator(AttendanceLocator.menuTime);
-    this.navAttendanceTab = page.locator(
-      AttendanceLocator.navAttendanceTab,
-      { hasText: 'Attendance' }
-    );
-    this.navPunchInOutOption = page.locator(
-      AttendanceLocator.navPunchInOutOption
-    );
-
+    this.navAttendanceTab = page.locator(AttendanceLocator.navAttendanceTab, { hasText: 'Attendance' });
+    this.navPunchInOutOption = page.locator(AttendanceLocator.navPunchInOutOption);
     this.pageTitle = page.locator(AttendanceLocator.pageTitle);
     this.noteTextarea = page.locator(AttendanceLocator.noteTextarea);
-
-    this.inButton = page.getByRole('button', { name: 'In' });
-    this.outButton = page.getByRole('button', { name: 'Out' });
-
-    this.toastMessage = page.locator(
-      AttendanceLocator.toastMessage
-    ).first();
+    this.inButton = page.locator(AttendanceLocator.inButton);
+    this.outButton = page.locator(AttendanceLocator.outButton);
+    this.toastMessage = page.locator(AttendanceLocator.toastMessage).first();
   }
 
   async navigateToPunchInOut() {
     await this.click(this.menuTime);
     await this.click(this.navAttendanceTab);
     await this.click(this.navPunchInOutOption);
-
-    await this.pageTitle.waitFor({
-      state: 'visible'
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async isPunchedIn(): Promise<boolean> {
-    await this.pageTitle.waitFor();
-
-    return await this.outButton.isVisible();
+    await this.page.waitForLoadState('networkidle');
+    const title = await this.getValidationMessage(this.pageTitle);
+    return title.trim() === 'Punch Out';
   }
 
   async punchIn(note: string) {
     await this.type(this.noteTextarea, note);
-
     await this.click(this.inButton);
-
-    await this.toastMessage.waitFor({
-      state: 'visible',
-      timeout: 10000
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async punchOut(note: string) {
     await this.type(this.noteTextarea, note);
-
     await this.click(this.outButton);
-
-    await this.toastMessage.waitFor({
-      state: 'visible',
-      timeout: 10000
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
-  async ensurePunchedOut(note: string) {
+  async ensurePunchedOut(autoNote: string) {
     await this.navigateToPunchInOut();
-
-    if (await this.outButton.isVisible()) {
-      await this.punchOut(note);
+    if (await this.isPunchedIn()) {
+      await this.punchOut(autoNote);
+      await this.toastMessage.waitFor({ state: 'visible', timeout: 15000 });
+      await this.page.waitForTimeout(2000);
     }
   }
 
-  async ensurePunchedIn(note: string) {
+  async ensurePunchedIn(autoNote: string) {
     await this.navigateToPunchInOut();
-
-    if (await this.inButton.isVisible()) {
-      await this.punchIn(note);
+    if (!(await this.isPunchedIn())) {
+      await this.punchIn(autoNote);
+      await this.toastMessage.waitFor({ state: 'visible', timeout: 15000 });
+      await this.page.waitForTimeout(2000);
     }
   }
 }
