@@ -9,6 +9,8 @@ export class LoginPage extends BasePage {
     readonly usernameValidationError: Locator;
     readonly passwordValidationError: Locator;
     readonly forgotPasswordLink: Locator;
+    readonly userDropdown: Locator;
+    readonly logoutLink: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -19,6 +21,8 @@ export class LoginPage extends BasePage {
         this.usernameValidationError = page.locator('.oxd-input-group:has(input[name="username"]) .oxd-input-field-error-message');
         this.passwordValidationError = page.locator('.oxd-input-group:has(input[name="password"]) .oxd-input-field-error-message');
         this.forgotPasswordLink = page.locator('.orangehrm-login-forgot-header');
+        this.userDropdown = page.locator('.oxd-userdropdown-tab');
+        this.logoutLink = page.locator('role=menuitem[name="Logout"]');
     }
 
     async login(username: string, password: string) {
@@ -28,5 +32,11 @@ export class LoginPage extends BasePage {
     }
     async clickForgotPassword() {
         await this.forgotPasswordLink.click();
+    }
+
+    async logout() {
+        await this.userDropdown.click();
+        await this.logoutLink.click();
+        await this.usernameInput.waitFor({ state: 'visible' }); 
     }
 }

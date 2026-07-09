@@ -1,4 +1,3 @@
-
 /**
  * Helper class for general utility methods
  * Does not contain Page or Locator methods (those are in BasePage)
@@ -10,6 +9,18 @@ export class Helper {
    */
   static async wait(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Automatically calculates and returns a future date
+   * @param daysToAdd - Number of days to add from the current date
+   * @param format - Output string format (default: 'YYYY-MM-DD')
+   * @returns Formatted future date string
+   */
+  static getFutureDate(daysToAdd: number, format: string = 'YYYY-MM-DD'): string {
+    const date = new Date();
+    date.setDate(date.getDate() + daysToAdd);
+    return this.formatDate(date, format);
   }
 
   /**
@@ -90,7 +101,7 @@ export class Helper {
    * @returns Unique ID string
    */
   static generateUniqueId(): string {
-    return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /**

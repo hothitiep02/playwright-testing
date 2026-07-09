@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-// Nạp file .env một lần duy nhất tại đây
 dotenv.config({ path: path.resolve(__dirname, '../../.env') }); 
 
 export const env = {
