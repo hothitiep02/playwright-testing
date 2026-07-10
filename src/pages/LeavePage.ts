@@ -14,7 +14,10 @@ export const LeaveLocator = {
   confirmButton: 'button:has-text("Yes, Approve")',
   applyTab: '.oxd-topbar-body-nav-tab',
   leaveTypeDropdown: '.oxd-input-group:has-text("Leave Type") .oxd-select-text',
-  selectOptions: '.oxd-select-dropdown .oxd-select-option',
+  
+  // Đã sửa Selector để loại bỏ lỗi Timeout khi tìm kiếm Option dropdown OrangeHRM
+  selectOptions: '[role="option"], .oxd-select-option',
+  
   searchEmpInput: '.oxd-autocomplete-text-input input',
   autocompleteOptions: '.oxd-autocomplete-dropdown .oxd-autocomplete-option',
   entitlementEmpInput: '.oxd-input-group:has-text("Employee Name") input',
@@ -86,19 +89,25 @@ export class LeavePage extends BasePage {
 
   async selectLeaveType(type: string) {
     await this.waitForLoaderToDisappear();
-    await this.selectDropdownOption(this.leaveTypeDropdown, this.selectOptions, type);
+    await this.click(this.leaveTypeDropdown);
+    await this.page.waitForTimeout(500);
+    await this.selectOptions.filter({ hasText: type }).first().click();
   }
 
   async fillLeaveForm(start: string, end: string) {
-    await this.fromDateInput.focus();
+    // Tối ưu hóa chuỗi dọn dẹp và điền ngày tháng chuẩn xác
+    await this.fromDateInput.click();
     await this.page.keyboard.press('Control+A');
     await this.page.keyboard.press('Backspace');
     await this.fromDateInput.fill(start);
-    await this.toDateInput.focus();
+
+    await this.toDateInput.click();
     await this.page.keyboard.press('Control+A');
     await this.page.keyboard.press('Backspace');
     await this.toDateInput.fill(end);
-    await this.page.keyboard.press('Escape');
+    
+    await this.page.keyboard.press('Escape'); 
+    await this.page.waitForTimeout(500);
   }
 
   async submitRequest() {
@@ -134,7 +143,12 @@ export class LeavePage extends BasePage {
     await this.type(this.entitlementEmpInput, empName);
     await this.autocompleteOptions.first().waitFor({ state: 'visible', timeout: 5000 });
     await this.click(this.autocompleteOptions.first());
-    await this.selectDropdownOption(this.entitlementLeaveTypeDropdown, this.selectOptions, leaveType);
+    
+    // Tương tác Dropdown bằng cấu trúc click an toàn mới
+    await this.click(this.entitlementLeaveTypeDropdown);
+    await this.page.waitForTimeout(500);
+    await this.selectOptions.filter({ hasText: leaveType }).first().click();
+
     await this.type(this.entitlementInput, amount);
     await this.click(this.entitlementSubmitButton);
     if (await this.entitlementConfirmButton.isVisible({ timeout: 2000 })) {
