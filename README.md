@@ -12,6 +12,7 @@ An end-to-end test automation framework built to validate the core modules of th
 * **CI/CD:**  Jenkins
 
 ## Folder Structure
+```text
 PLAYWRIGHT-TESTING/
 ├── src/                                      # Main source code for the automation project
 │   ├── fixtures/                             # Custom Playwright fixtures for initializing Page Objects
@@ -46,3 +47,4 @@ PLAYWRIGHT-TESTING/
 ├── package.json                              # Project dependencies, scripts, and metadata
 ├── playwright.config.ts                      # Global Playwright configuration
 └── tsconfig.json                             # TypeScript compiler configuration
+```
