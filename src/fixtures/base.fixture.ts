@@ -3,7 +3,6 @@ import { LoginPage } from '../pages/auth/LoginPage';
 import { ForgotPasswordPage } from '../pages/auth/ForgotPasswordPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
-import { LeavePage } from '../pages/LeavePage';
 import { env } from '../utils/env';
 import { AttendancePage } from '../pages/AttendancePage';
 
@@ -12,7 +11,6 @@ type PageFixtures = {
     forgotPasswordPage: ForgotPasswordPage;
     dashboardPage: DashboardPage;
     pimPage: PIMPage;
-    leavePage: LeavePage;
     attendancePage: AttendancePage;
 };
 
@@ -34,9 +32,7 @@ export const test = base.extend<PageFixtures>({
         await pimPage.navigateToPIM();
         await use(pimPage);
     },
-    leavePage: async ({ page}, use) => {
-        await use(new LeavePage(page));
-    },
+    
     attendancePage: async ({ page, loginPage }, use) => {
         const attendancePage = new AttendancePage(page);
         await loginPage.login(env.adminUsername,env.adminPassword);
